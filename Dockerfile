@@ -6,6 +6,6 @@ RUN . /app/.venv/bin/activate && uv pip install psycopg2-binary pyathena[pandas]
 
 USER superset
 
-COPY config.py /app/superset/config.py
+COPY superset_config.py /app/pythonpath/
 
 CMD ["/app/docker/entrypoints/run-server.sh"]
