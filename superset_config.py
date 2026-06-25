@@ -1,3 +1,4 @@
+from flask_caching.backends.rediscache import RedisCache
 import os
 
 REDIS_URL = os.getenv("REDIS_URL")
@@ -46,7 +47,9 @@ FEATURE_FLAGS = {
 GLOBAL_ASYNC_QUERIES_TRANSPORT = "ws"  # or "polling" if not using the WS server
 GLOBAL_ASYNC_QUERIES_WEBSOCKET_URL = "ws://localhost:8080/"  # adjust to your WS server
 
-GLOBAL_ASYNC_QUERIES_JWT_SECRET = "e16ced3ff0ba27807fbeaaada998cbcb252ec54a167c45bb851d1dfba428fffe"
+GLOBAL_ASYNC_QUERIES_JWT_SECRET = (
+    "e16ced3ff0ba27807fbeaaada998cbcb252ec54a167c45bb851d1dfba428fffe"
+)
 
 # Use CACHE_REDIS_URL to stay consistent with your REDIS_URL env var
 GLOBAL_ASYNC_QUERIES_CACHE_BACKEND = {
@@ -55,10 +58,11 @@ GLOBAL_ASYNC_QUERIES_CACHE_BACKEND = {
     "CACHE_DEFAULT_TIMEOUT": 300,
 }
 
-from flask_caching.backends.rediscache import RedisCache
+
 RESULTS_BACKEND = RedisCache(
-    host=REDIS_URL.split("//")[-1].split(":")[0],
+    host=os.getenv("REDISHOST"),
     port=6379,
+    password=os.getenv("REDIS_PASSWORD"),
     key_prefix="superset_results",
 )
 
