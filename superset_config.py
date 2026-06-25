@@ -41,4 +41,21 @@ FEATURE_FLAGS = {
 }
 
 
+class CeleryConfig(object):
+    broker_url = REDIS_URL + '/5'
+    imports = (
+        "superset.sql_lab",
+        "superset.tasks.scheduler",
+    )
+    result_backend = REDIS_URL + '/5'
+    worker_prefetch_multiplier = 10
+    task_acks_late = True
+    task_annotations = {
+        "sql_lab.get_sql_results": {
+            "rate_limit": "100/s",
+        },
+    }
+
+CELERY_CONFIG = CeleryConfig
+
 
