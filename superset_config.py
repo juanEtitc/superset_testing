@@ -19,19 +19,19 @@ FILTER_STATE_CACHE_CONFIG = {
 EXPLORE_FORM_DATA_CACHE_CONFIG = {
   **base_config,
   'CACHE_KEY_PREFIX': 'superset_filter_cache_config',
-  'CACHE_REDIS_URL': REDIS_URL + '/1'
+  'CACHE_REDIS_URL': REDIS_URL + '/0'
 }
 
 CACHE_CONFIG = {
 **base_config,
     'CACHE_KEY_PREFIX': 'cache_config',
-  'CACHE_REDIS_URL': REDIS_URL + '/2'
+  'CACHE_REDIS_URL': REDIS_URL + '/0'
 }
 
 DATA_CACHE_CONFIG = {
 **base_config,
     'CACHE_KEY_PREFIX': 'data_cache',
-  'CACHE_REDIS_URL': REDIS_URL + '/3'
+  'CACHE_REDIS_URL': REDIS_URL + '/0'
 }
 
 
@@ -42,12 +42,12 @@ FEATURE_FLAGS = {
 
 
 class CeleryConfig(object):
-    broker_url = REDIS_URL + '/5'
+    broker_url = REDIS_URL + '/0'
     imports = (
         "superset.sql_lab",
         "superset.tasks.scheduler",
     )
-    result_backend = REDIS_URL + '/5'
+    result_backend = REDIS_URL + '/0'
     worker_prefetch_multiplier = 10
     task_acks_late = True
     task_annotations = {
