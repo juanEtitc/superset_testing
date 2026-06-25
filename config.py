@@ -2609,3 +2609,39 @@ for env_var in ENV_VAR_KEYS:
     if env_var in os.environ:
         config_var = env_var.replace("SUPERSET__", "")
         globals()[config_var] = os.environ[env_var]
+
+
+
+r = os.environ.get("REDIS_URL", "redis://localhost:6379").rstrip("/")
+
+
+class CeleryConfig:
+    broker_url = r + "/0"
+    result_backend = r + "/1"
+
+
+CELERY_CONFIG = CeleryConfig
+CACHE_CONFIG = {
+    "CACHE_TYPE": "RedisCache",
+    "CACHE_REDIS_URL": r + "/2",
+    "CACHE_DEFAULT_TIMEOUT": 300,
+    "CACHE_KEY_PREFIX": "superset_",
+}
+DATA_CACHE_CONFIG = {
+    "CACHE_TYPE": "RedisCache",
+    "CACHE_REDIS_URL": r + "/3",
+    "CACHE_DEFAULT_TIMEOUT": 300,
+    "CACHE_KEY_PREFIX": "superset_data_",
+}
+FEATURE_FLAGS = {
+    "ALERT_REPORTS": True,
+    "DASHBOARD_RBAC": True,
+    "EMBEDDED_SUPERSET": True,
+}
+TALISMAN_ENABLED = False
+WTF_CSRF_ENABLED = True
+WTF_CSRF_TIME_LIMIT = None
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = "Lax"
+ENABLE_PROXY_FIX = True
