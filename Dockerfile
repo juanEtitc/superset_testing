@@ -1,6 +1,9 @@
 FROM apache/superset
-COPY requirements-local.txt /app/docker/requirements-local.txt
+
 USER root
-RUN chmod 777 -R .venv
+
+RUN . /app/.venv/bin/activate && uv pip install psycopg2-binary pyathena[pandas]
+
 USER superset
-ENTRYPOINT ["./docker/docker-init.sh"]
+
+CMD ["/app/docker/entrypoints/run-server.sh"]
