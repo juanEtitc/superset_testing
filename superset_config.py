@@ -40,7 +40,7 @@ FEATURE_FLAGS = {
     "ENABLE_TEMPLATE_PROCESSING": True,
   "GLOBAL_ASYNC_QUERIES": True,
 }
-
+GLOBAL_ASYNC_QUERIES_JWT_SECRET = "e16ced3ff0ba27807fbeaaada998cbcb252ec54a167c45bb851d1dfba428fffe"
 
 class CeleryConfig(object):
     broker_url = REDIS_URL + '/0'
